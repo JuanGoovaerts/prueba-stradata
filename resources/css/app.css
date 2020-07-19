@@ -1,0 +1,9 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.search-input {
+    @apply appearance-none block w-full pl-10 pr-3 py-2 border text-gray-900 ;
+}
