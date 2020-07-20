@@ -4,7 +4,7 @@
     <div x-data="publicPersons()" class="mt-6 bg-white shadow overflow-hidden rounded-md">
         <div class="bg-white px-4 pb-5 pt-5 border-b border-gray-200 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Candidates
+                Personas
             </h3>
         </div>
         <div class="px-4 pt-5 pb-3 sm:px-6">
@@ -23,23 +23,24 @@
                             x-model="name"
                             id="filter"
                             type="search"
-                            class="search-input rounded-l-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
+                            class="search-input pl-10 rounded-l-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
                             :class="{
                                 'border-red-500': hasError('name')
                             }"
                             placeholder="John Doe">
                     </div>
                     <div class="w-32 relative focus-within:z-10">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
+                        <div class="absolute inset-y-0 right-0 pl-3 flex items-center pointer-events-none">
+                            <span class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                               %
+                            </span>
                         </div>
                         <input x-model="rating"
                                id="rating"
-                               class="search-input placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
+                               type="number"
+                               min="0"
+                               max="100"
+                               class="search-input pl-3 pr-10 placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
                                :class="{
                                 'border-red-500': hasError('rating')
                                 }"
@@ -52,7 +53,7 @@
                                   d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
                                   clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-2">Filter</span>
+                        <span class="ml-2">Filtrar</span>
                     </button>
                 </div>
                 <p class="mt-2 text-sm text-red-600" id="email-error" x-show="hasError('name')"

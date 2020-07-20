@@ -1,85 +1,72 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Prueba Stradata
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Descripción
+Sistema que permita la validación de nombres de personas contra una base de datos de personas publicas (Tabla diccionario), 
+es decir, políticos, actores, cantantes, etc., para saber qué porcentaje de
+coincidencia existe entre ellos.
 
-## About Laravel
+El sistema cuenta con: 
+- Un algoritmo de validación de nombres expuesto como web service, que
+  reciba como parámetros los nombres y apellidos de la persona que se debe
+  validar y el porcentaje de coincidencia mínimo que se espera como
+  respuesta, es decir, a partir de ese valor de porcentaje se entregarán
+  coincidencias. A modo de Ejemplo: Alejandro Hernandez vs Alejandro
+  Fernandez, tendrá una coincidencia del 90%, si al Web service le envío
+  como parámetro el 90%devolveré el resultado, pero si el parámetro es del
+  95 % el resultado será vacío. (Este se puede consumir mediante webservice)
+- Pagina de inicio 
+- Login
+- Dashboard diseñado con ppción de ingregar un nombre y el rating de similitud y devuelve las 25 mejores coincidencias
+(para esto se hizo tambien una pequeña mejora a nivel de base de datos dando un index de full text search usando el driver de natural language 
+para mejorar un poco los resultados. Una vez sobre esos resultados hace las calculaciones de las coincidencias)
+- Usa laravel, Tailwind Css y Apline js (un mini framework sin necesidad de instalar que esta basado en vue se usó por su simplicidad)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Instalación
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Una vez terminado esto usar la base de datos que esta en <br>
+`database/stradata.sql` <br>
+<br>
+Una vez se tiene la base de datos importado y su usuario puede correr
+`cp .env.example .env` asi se genera el .env
+ 
+Despues se debe de instalar las dependencias 
+`composer install` <br> <br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+se puede iniciar sesión con: <br>
 
-## Learning Laravel
+prueba@gmail.com <br>
+password
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Código donde esta la prueba
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Hay una Clase que se llama StringCompare.php
+`app/StringCompare.php` <br>
+Esta clase es la encargada de cacular y comparar el nombre dado con los strings.
 
-## Laravel Sponsors
+Al construir la clase coge el nombre y permuta el nombre en un array de nombres posibles. <br>
+Ej: Juan Goovaerts hace un array `['Juan Goovaerts,','Goovaerts Juan']` esto se hace para que el
+se puede comprar el nombre es los ordenes posibles
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Tiene un método que reemplaze letters por sus parecido esto hace que se puede cumplir el requisito de que Vi y Bi dan el mismo resultado
 
-### Premium Partners
+Tiene un metodo que calcula la similitud de de los strings, y devuelve el porcentaje, el hace el transform a lower case y cambia el string con el método explicado aquí arriba
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
+El método `compare` va coger el array de los posibles ordenes de los nombres y va comparar con un string, calcula toda las posibildades y retorna el mayor puntaje
 
-### Community Sponsors
+El metodo `withPublicFigures` recibe un array de collection y calcula para todos su porcentaje
 
-<a href="https://op.gg"><img src="http://opgg-static.akamaized.net/icon/t.rectangle.png" width="150"></a>
+Desde el controlador se ordena por el ranking, y se limita 25 resultados
 
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [云软科技](http://www.yunruan.ltd/)
+En `app/PublicFigure.php`  se hizo un search method que usa el full text search de sql para poder "filtrar" un poco los resultados y no hacerlo con todos los records así mejorando un poco el rendimineto
 
-## Contributing
+No pude probar lo suficiente con boolean mode que sería lo ideal para performance entonces por ahora lo deje en natural lang
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+En `database/migrations/` se puede ver la migración y como se agregó el index
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Se hizo tambien un test que se puede correr 
+`php artisan test`
 
-## Security Vulnerabilities
+El test se puede ver en
+`tests/Unit/StringCompareTest.php`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

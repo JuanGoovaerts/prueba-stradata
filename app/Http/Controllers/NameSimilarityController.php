@@ -20,7 +20,7 @@ class NameSimilarityController extends Controller
             ->withPublicFigures($persons)
             ->sortByDesc('raking')
             ->where('raking', '>=', $request->rating)
-            ->take(100)
+            ->take(25)
             ->values();
         return response()->json([
            'persons' => $persons,
