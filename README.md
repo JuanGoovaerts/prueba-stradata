@@ -71,3 +71,9 @@ Se hizo tambien un test que se puede correr
 El test se puede ver en
 `tests/Unit/StringCompareTest.php`
 
+La vista home es el que tiene la logica de usar el webservice de comparación.
+Se usó alpine que es parecido a vue js pero much mas ligero y rapido.
+Dado que fue algo bastante simple de consumir y facil instación decidí ir con esa.
+
+
+
