@@ -20,6 +20,7 @@ El sistema cuenta con:
 (para esto se hizo tambien una pequeña mejora a nivel de base de datos dando un index de full text search usando el driver de natural language 
 para mejorar un poco los resultados. Una vez sobre esos resultados hace las calculaciones de las coincidencias)
 - Usa laravel, Tailwind Css y Apline js (un mini framework sin necesidad de instalar que esta basado en vue se usó por su simplicidad)
+- Unit test para el algoritmo
 
 ## Instalación
 
