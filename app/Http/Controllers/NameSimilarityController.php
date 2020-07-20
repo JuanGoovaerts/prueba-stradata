@@ -15,7 +15,9 @@ class NameSimilarityController extends Controller
            'name' => ['required', 'string'],
            'rating' => ['required', 'integer', 'max:100', 'min:0']
         ]);
-        $persons = PublicFigure::search($request->name)->get();
+        // SE PUEDE USAR PARA MEJORAR UN POCO EL QUERY TIENE ALGUNOS PITFALLS
+        //$persons = PublicFigure::search($request->name)->get();
+        $persons = PublicFigure::query()->get();
         $persons = (new StringCompare($request->name))
             ->withPublicFigures($persons)
             ->sortByDesc('raking')
