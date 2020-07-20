@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::post('search_name', 'NameSimilarityController');
 Auth::routes([
-    'register' => true
+    'register' => false
 ]);
 
 Route::get('/home', 'HomeController@index')->name('home');

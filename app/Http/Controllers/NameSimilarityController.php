@@ -19,9 +19,13 @@ class NameSimilarityController extends Controller
         $persons = (new StringCompare($request->name))
             ->withPublicFigures($persons)
             ->sortByDesc('raking')
-            ->where('raking', '>=', $request->rating);
+            ->where('raking', '>=', $request->rating)
+            ->take(100)
+            ->values();
         return response()->json([
-           'persons' => $persons->take(20)->values()
-        ]);
+           'persons' => $persons,
+           'count' => count($persons),
+           'ok' => true,
+        ], 200);
     }
 }

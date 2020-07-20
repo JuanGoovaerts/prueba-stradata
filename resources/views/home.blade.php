@@ -22,6 +22,7 @@
                         <input
                             x-model="name"
                             id="filter"
+                            type="search"
                             class="search-input rounded-l-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
                             :class="{
                                 'border-red-500': hasError('name')
@@ -37,12 +38,12 @@
                             </svg>
                         </div>
                         <input x-model="rating"
-                               id="filter"
+                               id="rating"
                                class="search-input placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5 transition ease-in-out duration-150"
                                :class="{
                                 'border-red-500': hasError('rating')
                                 }"
-                               placeholder="John Doe">
+                               placeholder="90">
                     </div>
                     <button @click="search()"
                             class="-ml-px relative flex items-center px-3 py-2 rounded-r-md border border-gray-300 text-sm leading-5 bg-gray-50 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
